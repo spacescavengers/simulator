@@ -1,5 +1,7 @@
 **/__pycache__
 
+.simulatorvenv
+
 # LaTeX files
 **/*.aux
 **/*.log
