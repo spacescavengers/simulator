@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	sc   = SC(
 			{
 			'coes'       : coes,
-			'tspan'      : '100', 
+			'tspan'      : '1000', 
 			'dt'         : 100.0,
 			'orbit_perts': { 'J2': True }
 			} )
