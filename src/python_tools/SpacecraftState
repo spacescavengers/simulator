@@ -1,0 +1,6 @@
+
+
+class SpacecraftState:
+
+    def __init__(self) -> None:
+        pass
