@@ -1,0 +1,39 @@
+name: cicd
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  VERSION: 0.1.0
+
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+
+      - name: install dependencies
+        run: |
+          python3 -m pip install "flake8>=4.0.0, <4.1.0" "safety>=1.10.0, <1.11.0" "bandit >=1.7.0, <1.8.0"
+      - name: Lint with flake8
+        run: |
+          python3 -m flake8 --max-line-length=120 ./
+      # - name: safety module
+      #   run: |
+      #     python3 -m safety check --file ./src/requirements.txt
+      # - name: bandit
+      #   run: |
+      #     python3 -m bandit -r ./
+      - name: check notebooks outputs
+        run: |
+          find . -name '*.ipynb' | xargs -L 1 python3 -c "import sys, json; assert sum([len(cell['outputs']) for cell in json.load(open(sys.argv[1]))['cells'] if cell['cell_type'] == 'code']) == 0, f'Notebook {sys.argv[1]} has unclean cell outputs.'"
