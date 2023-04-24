@@ -7,8 +7,8 @@ from matplotlib.axes import Axes
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 
-from satellite.satellite import Satellite
-from state.motion_state import MotionState
+from common.satellite import Satellite
+from propagation.state.motion_state import MotionState
 
 
 class SimpleVisualizer:

@@ -3,10 +3,9 @@ from typing import Dict, List
 import datetime
 from datetime import datetime, timedelta
 
-from state.motion_state import MotionState, MotionTracker
-from state.satellite_state import SatelliteState
-from earth_orbit_propagator import OrbitPropagator
-from satellite.satellite import Satellite
+from propagation.state.motion_state import MotionState, MotionTracker, SatelliteState
+from propagation.earth_orbit_propagator import OrbitPropagator
+from common.satellite import Satellite
 from visualization.visualizer import SimpleVisualizer
 
 class Simulation:
@@ -16,7 +15,7 @@ class Simulation:
 
         self.__timestamp: datetime = initialTimestamp
         self.__stepCount: int = stepCount
-        self.__stepSize: int = 10000 # time in [ms] (default to 10s)
+        self.__stepSize: int = 1000 # time in [ms] (default to 1s)
         self.__propagator: OrbitPropagator = OrbitPropagator(self.__stepSize)
 
         # to be intialized
@@ -31,7 +30,7 @@ class Simulation:
 
     def run(self):
         for step in range(0, self.__stepCount):
-            log.info(f'step: {str(step)}')
+            log.debug(f'step: {str(step)}')
             self.__step()
 
     def __step(self) -> None:
@@ -59,7 +58,7 @@ class Simulation:
             log.info(f'adding entry: {satelliteState.toString()}')
             self.__satelliteMotionTrackerMap[satelliteState.getSatellite()] = self.__initMotionTracker(satelliteState)
 
-        self.__visualizer = SimpleVisualizer(self.__extractSatelliteLastMotionStateMap(), 100)
+        self.__visualizer = SimpleVisualizer(self.__extractSatelliteLastMotionStateMap(), 1000)
 
     def __initMotionTracker(self, satelliteState: SatelliteState) -> MotionTracker:
         motionTracker: MotionTracker = MotionTracker(satelliteState.getSatellite())

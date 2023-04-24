@@ -1,8 +1,0 @@
-{
-	"version": "1.0",
-	"name"   : "Voyager 2 Jupiter Flyby Load Catalog",
-	"require": [
-		"spice.json",
-		"voyagers.json"
-	]
-}

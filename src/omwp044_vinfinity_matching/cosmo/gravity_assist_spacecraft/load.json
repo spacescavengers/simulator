@@ -1,8 +1,0 @@
-{
-	"version": "1.0",
-	"name"   : "Gravity Assist Spacecraft Load Catalog",
-	"require": [
-		"spice.json",
-		"spacecraft.json"
-	]
-}

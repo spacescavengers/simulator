@@ -1,34 +1,23 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.animation import FuncAnimation
 from datetime import datetime
-
-from earth_orbit_propagator import OrbitPropagator
 from satellite.satellite_impl.test_satellite import TestSatellite
-from base_models.vector import XYZVector
-from satellite.satellite import Satellite
+from propagation.state.motion_state import MotionState, SatelliteState
 from simulation import Simulation
-from state.satellite_state import SatelliteState
-from state.motion_state import MotionState
 
-
-# Simulate the motion of the satellite in a geostationary orbit
-alt = 35786000  # altitude of geostationary orbit
-r = alt + OrbitPropagator.R_earth
-v = np.sqrt(OrbitPropagator.mu / r)
 
 # Define Start Timestamp
 initTimestamp: datetime = datetime.now()
 
+satelliteStates: list[SatelliteState] = []
+
 # Define satellites and their States
-satelliteState1: SatelliteState = SatelliteState(TestSatellite("Sat1"), MotionState(initTimestamp, XYZVector(r, 0, 0), XYZVector(0, v, 0)))
-satelliteState2: SatelliteState = SatelliteState(TestSatellite("Sat2"), MotionState(initTimestamp, XYZVector(0, r, 0), XYZVector(-v, 0, 0)))
+sat1MotionState: MotionState = MotionState.fromCoes(initTimestamp, 9000, 0.01, 30.0, 0.0, 0.0, 0.0)
+sat1State: SatelliteState = SatelliteState(TestSatellite("Sat1"), sat1MotionState)
+satelliteStates.append(sat1State)
 
-satelliteStates: list[SatelliteState] = [satelliteState1, satelliteState2]
-
+# sat2MotionState: MotionState = MotionState.fromCoes(initTimestamp, 40000, 0.35, 10.0, 0.0, 0.0, 0.0)
+# sat2State: SatelliteState = SatelliteState(TestSatellite("Sat2"), sat2MotionState)
+# satelliteStates.append(sat2State)
 
 simulation: Simulation = Simulation(initTimestamp, satelliteStates, 30000)
 
 simulation.run()
-

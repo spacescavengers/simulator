@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
-from earth_orbit_propagator import OrbitPropagator
-from satellite.satellite_impl.test_satellite import TestSatellite
-from base_models.vector import XYZVector
-from state.satellite_state import InitSatelliteState
+from propagation.earth_orbit_propagator import OrbitPropagator
+from models.satellite.satellite_impl.test_satellite import TestSatellite
+from common.vector import XYZVector
+from propagation.state.motion_state import InitSatelliteState
 from visualization.visualizer import visualizeInteractiveSatelliteMotion
 
 propagator = OrbitPropagator(5) # 5 seconds

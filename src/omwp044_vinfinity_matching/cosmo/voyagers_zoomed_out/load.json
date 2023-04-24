@@ -1,8 +1,0 @@
-{
-	"version": "1.0",
-	"name"   : "Voyagers Load Catalog",
-	"require": [
-		"spice.json",
-		"voyagers.json"
-	]
-}
